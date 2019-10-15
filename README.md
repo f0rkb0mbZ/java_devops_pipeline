@@ -3,6 +3,7 @@ This is a test webapplication with db integration built with maven and runs on T
 ## Run the file:
 ```bash
 $mvn package
-$cd target
+$cd target/bin/
 $./webapp
 ```
+
