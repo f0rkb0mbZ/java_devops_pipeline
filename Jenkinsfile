@@ -7,33 +7,36 @@ pipeline {
 	agent any
 	stages {
 		stage('SCM Checkout') {
-		git 'https://github.com/forkbomb-666/webapp_maven'
-	}
-	stage('Compile-Package') {
-		def mvn_home = tool name: 'maven-3.6.0', type: 'maven'
-		sh "${mvn_home}/bin/mvn package"
-	}
-	stage('Building Image') {
-		steps {
-			scripts {
-				dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			steps{
+				git 'https://github.com/forkbomb-666/webapp_maven'
 			}
 		}
-	}
-	stage('Deploy Image') {
-		steps {
-			script {
-				docker.withRegistry('', registryCredential) {
-					dockerImage.push()
+		stage('Compile-Package') {
+			steps {
+				def mvn_home = tool name: 'maven-3.6.0', type: 'maven'
+				sh "${mvn_home}/bin/mvn package"
+			}
+		}
+		stage('Building Image') {
+			steps {
+				scripts {
+					dockerImage = docker.build registry + ":$BUILD_NUMBER"
 				}
 			}
 		}
-	}
-	stage('Remove Unused docker image') {
-		steps {
-			sh "docker rmi $registry:$BUILD_NUMBER"
+		stage('Deploy Image') {
+			steps {
+				script {
+					docker.withRegistry('', registryCredential) {
+						dockerImage.push()
+					}
+				}
+			}
 		}
-	}
-
+		stage('Remove Unused docker image') {
+			steps {
+				sh "docker rmi $registry:$BUILD_NUMBER"
+			}
+		}
 	}
 }
