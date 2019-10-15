@@ -1,4 +1,4 @@
-# _webapp_maven_
+# _*webapp_maven*_
 This is a test webapplication with db integration built with maven and runs on Tomcat
 ## Run the file:
 ```bash
