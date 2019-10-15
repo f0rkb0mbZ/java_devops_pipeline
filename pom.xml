@@ -8,13 +8,13 @@
   <name>embeddedTomcatSample Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <tomcat.version>8.5.38</tomcat.version>
+    <tomcat.version>8.5.40</tomcat.version>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>[8.5.40,)</version>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
         <groupId>org.apache.tomcat.embed</groupId>
