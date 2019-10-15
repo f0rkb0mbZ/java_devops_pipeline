@@ -13,8 +13,10 @@ pipeline {
 		}
 		stage('Compile-Package') {
 			steps {
-				def mvn_home = tool name: 'maven-3.6.0', type: 'maven'
-				sh "${mvn_home}/bin/mvn package"
+				script{
+					def mvn_home = tool name: 'maven-3.6.0', type: 'maven'
+					sh "${mvn_home}/bin/mvn package"
+				}
 			}
 		}
 		stage('Building Image') {
