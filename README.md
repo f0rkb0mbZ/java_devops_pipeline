@@ -7,3 +7,6 @@ $cd target/bin/
 $./webapp
 ```
 
+```bash
+$ kubectl
+```
