@@ -51,7 +51,7 @@ pipeline {
 	then
 		kubectl delete deployment webapp-v`expr $BUILD_NUMBER - 1`;
 	fi'''
-						sh "kubectl run --image=arig23498/webapp webapp-v$BUILD_NUMBER --port=9090 --replicas=3"
+						sh "kubectl run --image=arig23498/webapp:$BUILD_NUMBER webapp-v$BUILD_NUMBER --port=9090 --replicas=3"
 					}
 				}
 			}
