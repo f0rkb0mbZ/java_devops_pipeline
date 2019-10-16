@@ -7,3 +7,5 @@ tomcat.5000
 *.iml
 
 .vscode/
+
+.classpath
