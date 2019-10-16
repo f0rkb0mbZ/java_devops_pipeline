@@ -74,7 +74,7 @@ pipeline {
 								"labels": {
 									"run": "webapp-v$BUILD_NUMBER"
 								},
-								"namespace": "webapp",
+								"namespace": "webapp"
 							},
 							"spec": {
 								"externalIPs": [
