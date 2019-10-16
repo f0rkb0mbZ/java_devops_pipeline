@@ -1,4 +1,9 @@
 pipeline {
+	environment {
+		registry = "arig23498/webapp"
+		registryCredential = 'dockerhubid'
+		dockerImage = ''
+	}
 	agent any
 	stages {
 		stage('SCM Checkout') {
@@ -32,7 +37,9 @@ pipeline {
 		}
 		stage('Remove Unused docker image') {
 			steps {
-				sh "docker rmi $registry:$BUILD_NUMBER"
+				script {
+					sh "docker rmi $registry:$BUILD_NUMBER"
+				}
 			}
 		}
 	}
