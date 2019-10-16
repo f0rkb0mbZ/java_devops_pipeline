@@ -14,6 +14,7 @@ pipeline {
 		stage('Compile-Package') {
 			steps {
 				script{
+					whoami
 					def mvn_home = tool name: 'maven-3.6.0', type: 'maven'
 					sh "${mvn_home}/bin/mvn package"
 				}
