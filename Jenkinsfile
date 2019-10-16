@@ -65,32 +65,42 @@ pipeline {
 		kubectl delete service webapp-v`expr $BUILD_NUMBER - 1`;
 	fi'''
 						// sh "kubectl expose deployment webapp-v$BUILD_NUMBER --type=LoadBalancer --port=9090 --target-port=9090 --external-ip=104.211.230.185"
-						sh '''cat <<EOF >service-deploy.yaml
-						apiVersion: v1
-						kind: Service
-						metadata:
-						name: webapp-v$BUILD_NUMBER
-						labels:
-							run: webapp-v$BUILD_NUMBER
-						name: webapp-v$BUILD_NUMBER
-						namespace: webapp
-						spec:
-						externalIPs:
-						- 104.211.230.185
-						externalTrafficPolicy: Cluster
-						ports:
-						- nodePort: 32607
-							port: 9090
-							protocol: TCP
-							targetPort: 9090
-						selector:
-							run: webapp-v$BUILD_NUMBER
-						sessionAffinity: None
-						type: LoadBalancer
-						status:
-						loadBalancer: {}
+						sh '''cat <<EOF >service-deploy.json
+						{
+							"apiVersion": "v1",
+							"kind": "Service",
+							"metadata": {
+								"name": "webapp-v$BUILD_NUMBER",
+								"labels": {
+									"run": "webapp-v$BUILD_NUMBER"
+								},
+								"namespace": "webapp",
+							},
+							"spec": {
+								"externalIPs": [
+									"104.211.230.185"
+								],
+								"externalTrafficPolicy": "Cluster",
+								"ports": [
+									{
+										"nodePort": 32607,
+										"port": 9090,
+										"protocol": "TCP",
+										"targetPort": 9090
+									}
+								],
+								"selector": {
+									"run": "webapp-v$BUILD_NUMBER"
+								},
+								"sessionAffinity": "None",
+								"type": "LoadBalancer"
+							},
+							"status": {
+								"loadBalancer": {}
+							}
+						}
 						EOF'''
-						sh "kubectl apply -f service-deploy.yaml"
+						sh "kubectl apply -f service-deploy.json"
 					}
 				}
 			}
