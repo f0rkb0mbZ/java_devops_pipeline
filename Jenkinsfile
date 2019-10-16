@@ -99,6 +99,7 @@ pipeline {
 								"loadBalancer": {}
 							}
 						}
+						
 						EOF'''
 						sh "kubectl apply -f service-deploy.json"
 					}
