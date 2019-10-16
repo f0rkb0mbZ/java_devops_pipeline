@@ -45,9 +45,7 @@ pipeline {
 		stage('Deploy Application') {
 			steps {
 				script {
-					sh("if kubectl get deployments.apps | grep -q webapp-v; then
-    					kubectl delete deployment webapp-v`expr $BUILD_NUMBER - 1`
-					fi")
+					sh "if kubectl get deployments.apps | grep -q webapp-v; then kubectl delete deployment webapp-v`expr $BUILD_NUMBER - 1`	fi"
 					sh "kubectl run --image=arig23498/webapp webapp-v$BUILD_NUMBER --port=9090"
 				}
 			}
@@ -55,9 +53,7 @@ pipeline {
 		stage('Expose Application') {
 			steps {
 				script {
-					sh("if kubectl get services | grep -q webapp-v; then
-    					kubectl delete service webapp-v`expr $BUILD_NUMBER - 1`
-					fi")
+					sh "if kubectl get services | grep -q webapp-v; then kubectl delete service webapp-v`expr $BUILD_NUMBER - 1` fi"
 					sh "kubectl expose deployment webapp-v$BUILD_NUMBER --type=LoadBalancer --port=9090 --target-port=9090 --external-ip=104.211.230.185"
 				}
 			}
