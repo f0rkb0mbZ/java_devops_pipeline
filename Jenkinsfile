@@ -1,9 +1,4 @@
 pipeline {
-	environment {
-		registry = "arig23498/webapp"
-		registryCredential = 'dockerhubid'
-		dockerImage = ''
-	}
 	agent any
 	stages {
 		stage('SCM Checkout') {
