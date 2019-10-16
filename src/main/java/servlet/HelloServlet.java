@@ -19,36 +19,33 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DataBase db = new DataBase();
-        List<String> arr = new ArrayList<String>();
-        arr = db.getData();
+        ArrayList<ArrayList<String>> totalData = new ArrayList<ArrayList<String>>();
+        totalData = db.getData();
         // ServletOutputStream out = resp.getOutputStream();
         PrintWriter out = resp.getWriter();
         out.println("<HTML>");
         out.println("<HEAD>");
         out.println(
                 "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' type='text/css'>");
-        out.println("<TITLE>Hello Servlet</TITLE>");
         out.println("</HEAD>");
         out.println("<BODY>");
-        out.println("Hello Servlet");
-
-        out.println("<div class='table-responsive'>");
-        out.println("<Table>");
-        out.println("<tr>");
-        out.println("<th>Continent</th>");
-        out.println("</tr>");
-
+        out.println("<div class='container'>");
+        out.println("<h2>DataBase Checking</h2>");
+        out.println("<table class=\"table table-bordered\">");
+        out.println("<thead><tr><th>Continent</th><th>Region</th><th>Local Name</th></tr></thead>");
+        out.println("<tbody>");
         int i = 0;
-        while (arr.size() > i) {
+        while (totalData.get(0).size() > i) {
             out.println("<tr>");
-            out.printf("<td>%s</td>\n", arr.get(i));
+            out.printf("<td>%s</td>\n", totalData.get(0).get(i));
+            out.printf("<td>%s</td>\n", totalData.get(1).get(i));
+            out.printf("<td>%s</td>\n", totalData.get(2).get(i));
             out.println("</tr>");
             i++;
         }
-
-        out.println("</Table>");
+        out.println("</tbody>");
+        out.println("</table>");
         out.println("</div>");
-
         out.println("</BODY>");
         out.println("</HTML>");
     }

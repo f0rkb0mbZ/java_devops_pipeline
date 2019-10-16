@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 public class DataBase {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -13,9 +15,12 @@ public class DataBase {
    static final String USER = "aritra";
    static final String PASS = "Dare2@hack";
 
-   public List<String> getData() {
+   public ArrayList<ArrayList<String>> getData() {
 
-      List<String> Ar = new ArrayList<String>();
+      ArrayList<String> Continent = new ArrayList<String>();
+      ArrayList<String> Region = new ArrayList<String>();
+      ArrayList<String> LocalName = new ArrayList<String>();
+      ArrayList<ArrayList<String>> DataCountry = new ArrayList<ArrayList<String>>();
 
       Connection conn = null;
       Statement stmt = null;
@@ -39,15 +44,17 @@ public class DataBase {
          while (rs.next()) {
 
             String continent = rs.getString("continent");
-            // String region = rs.getString("region");
-            // String local_name = rs.getString("local_name");
+            String region = rs.getString("region");
+            String local_name = rs.getString("local_name");
 
-            Ar.add(continent);
+            Continent.add(continent);
+            Region.add(region);
+            LocalName.add(local_name);
 
-            System.out.print("continent: " + continent + " ");
+            // System.out.print("continent: " + continent + " ");
             // System.out.print("region: " + region + " ");
             // System.out.print("localo_name: " + local_name + " ");
-            System.out.println();
+            // System.out.println();
          }
          // STEP 6: Clean-up environment
          rs.close();
@@ -74,6 +81,10 @@ public class DataBase {
          } // end finally try
       } // end try
       System.out.println("Goodbye!");
-      return Ar;
+      DataCountry.add(Continent);
+      DataCountry.add(Region);
+      DataCountry.add(LocalName);
+      return DataCountry;
+
    }// end main
 }// end FirstExample
