@@ -35,4 +35,4 @@ The web application is running on your localhost at post 9090
 
 Go to your favourite web-browser and in the address bar type `localhost:9090`
 
-> Sample Commit Test Line from Eclipse
+## Sample web app commit line from eclipse
