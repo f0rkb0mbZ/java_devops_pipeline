@@ -9,10 +9,10 @@ import javax.xml.crypto.Data;
 public class DataBase {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-   static final String DB_URL = "jdbc:mysql://localhost:3306/sayak";
+   static final String DB_URL = "jdbc:mysql://192.168.104.78:3306/inframind";
 
    // Database credentials
-   static final String USER = "aritra";
+   static final String USER = "root";
    static final String PASS = "Dare2@hack";
 
    public ArrayList<ArrayList<String>> getData() {
