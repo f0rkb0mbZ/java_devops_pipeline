@@ -1,23 +1,23 @@
 # Microservice based Java Web App
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d78066416d2e4be1bf1aa259c661bb29)](https://www.codacy.com/manual/forkbomb-666/webapp_maven?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=forkbomb-666/webapp_maven&amp;utm_campaign=Badge_Grade)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d78066416d2e4be1bf1aa259c661bb29)](https://www.codacy.com/manual/forkbomb-666/webapp_maven?utm_source=github.com&utm_medium=referral&utm_content=forkbomb-666/webapp_maven&utm_campaign=Badge_Grade)
+
 ## Technology Stack used
 
-*  Java
-*  Servlet
-*  Maven
-*  Tomcat
-*  Jenkins
-*  Docker
-*  Kubernetes
-
-
+-   Java
+-   Servlet
+-   Maven
+-   Tomcat
+-   Jenkins
+-   Docker
+-   Kubernetes
 
 ## Contents of the Repository
 
-*  Web Application made with `Java Servlet`
-*  `pom.xml` for `maven` to build the application and package it into a `.jar`
-*  `Dockerfile` which holds the steps to build a docker image of the web application
-*  `Jenkinsfile` to help `Jenkins` automate the building and deploying the web application into `docker hub`
+-   Web Application made with `Java Servlet`
+-   `pom.xml` for `maven` to build the application and package it into a `.jar`
+-   `Dockerfile` which holds the steps to build a docker image of the web application
+-   `Jenkinsfile` to help `Jenkins` automate the building and deploying the web application into `docker hub`
 
 ## Run the Web Application locally
 
@@ -34,11 +34,15 @@ The web application is running on your localhost at post 9090
 Go to your favorite web-browser and in the address bar type `localhost:9090`
 
 ## CI/CD with Jenkins and Kubernetes Deployment
+
 ### VM instance setup
+
 In the following steps we will talk specifically of the Kubernetes cluster that has been created, the cluster consists of 2 VM instances one working as the `master` other as the `worker`.
 The VMs `must` be in same `resource group` and share the same `virtual network`.
 In each of the VMs we need to run the following block of codes.
+
 #### **`setup_docker.sh`**
+
 ```bash
 sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update
@@ -57,7 +61,9 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 ```
+
 #### **`setup_kebernetes.sh`**
+
 ```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -68,20 +74,25 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 ```
+
 Authorize Jenkins bye creating a new kubernetes service account and generating a base64 secret key:
+
 #### **`authorize_jenkins.sh`**
+
 ```bash
 kubectl -n webapp create sa jenkins
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=webapp:jenkins
 kubectl get -n webapp sa/jenkins --template='{{range .secrets}}{{ .name }} {{end}}' | xargs -n 1 kubectl -n webapp get secret --template='{{ if .data.token }}{{ .data.token }}{{end}}' | head -n 1 | base64 -d -
 ```
-Save the secret as secret text credential for using [kubernetes-cli-plugin]( https://github.com/jenkinsci/kubernetes-cli-plugin ) with Jenkins.
+
+Save the secret as secret text credential for using [kubernetes-cli-plugin](https://github.com/jenkinsci/kubernetes-cli-plugin) with Jenkins.
 
 ### Database setup
 
 After setting up each VMs, we are creating a stateful persistent volume of 4 GiB for our MySQL database storage:
 
 #### **`mysql-pv.yaml`**
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -110,8 +121,11 @@ spec:
     requests:
       storage: 4Gi
 ```
+
 Now, we need to deploy the mysql:5.7 image as a deployment in the kubernetes cluster.
+
 #### **`mysql-deployment.yaml`**
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -160,13 +174,15 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-pv-claim
 ```
+
 ### Automation setup
 
-Setup ` Jenkins` as directed by [Jenkins](https://jenkins.io/). 
+Setup `Jenkins` as directed by [Jenkins](https://jenkins.io/). 
 For the `CI/CD` pipeline we had to authenticate Jenkins with `GitHub`, `Docker Hub` and `Kubernetes`.
 We have used the following deployment file to expose our webapp:
 
 #### **`webapp-service-deploy.json`**
+
 ```json
 {
     "apiVersion": "v1",
@@ -202,6 +218,7 @@ We have used the following deployment file to expose our webapp:
     }
 }
 ```
+
 The rest of the CI/CD pipeline is taken care of by Jenkins. :heart:
 
 After `successfully` deploying the web app the app is exposed at `<worker-node-IP>:32607`
