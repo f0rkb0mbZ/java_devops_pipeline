@@ -1,41 +1,39 @@
 # Microservice based Java Web App
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d78066416d2e4be1bf1aa259c661bb29)](https://www.codacy.com/manual/forkbomb-666/webapp_maven?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=forkbomb-666/webapp_maven&amp;utm_campaign=Badge_Grade)
+## Technology Stack used
 
-### Technology Stack used:
-
-* Java
-* Servlet
-* Maven
-* Tomcat
-* Jenkins
-* Docker
-* Kubernetes
-
-
-
-### Contents of the Repository:
-
-* Web Application made with `Java Servlet`
-* `pom.xml` for `maven` to build the application and package it into a `.jar`
-* `Dockerfile` which holds the steps to build a docker image of the web application
-* `Jenkinsfile` to help `Jenkins` automate the building and deploying the web application into `docker hub`
+*  Java
+*  Servlet
+*  Maven
+*  Tomcat
+*  Jenkins
+*  Docker
+*  Kubernetes
 
 
 
-## Run the Web Application locally:
+## Contents of the Repository
+
+*  Web Application made with `Java Servlet`
+*  `pom.xml` for `maven` to build the application and package it into a `.jar`
+*  `Dockerfile` which holds the steps to build a docker image of the web application
+*  `Jenkinsfile` to help `Jenkins` automate the building and deploying the web application into `docker hub`
+
+## Run the Web Application locally
 
 ```bash
-$ git clone https://github.com/ariG23498/webapp_maven.git
-$ cd webapp_maven
-$ mvn package
-$ cd target/bin/
-$ ./webapp
+git clone https://github.com/ariG23498/webapp_maven.git
+cd webapp_maven
+mvn package
+cd target/bin/
+./webapp
 ```
 
 The web application is running on your localhost at post 9090
 
 Go to your favorite web-browser and in the address bar type `localhost:9090`
 
-## CI/CD with Jenkins and Kubernetes Deployment:
+## CI/CD with Jenkins and Kubernetes Deployment
 ### VM instance setup
 In the following steps we will talk specifically of the Kubernetes cluster that has been created, the cluster consists of 2 VM instances one working as the `master` other as the `worker`.
 The VMs `must` be in same `resource group` and share the same `virtual network`.

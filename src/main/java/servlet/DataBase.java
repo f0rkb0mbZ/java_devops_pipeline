@@ -2,9 +2,6 @@ package servlet;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.crypto.Data;
 
 public class DataBase {
    // JDBC driver name and database URL
