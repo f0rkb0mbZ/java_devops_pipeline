@@ -70,7 +70,7 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 ```
-Setup ` Jenkins` as directed by [Jenkins](https://jenkins.io/)
+Setup ` Jenkins` as directed by [Jenkins](https://jenkins.io/). 
 For the `CI/CD` pipeline we had to authenticate Jenkins with `GitHub`, `Docker Hub` and `Kubernetes`.
 We have used the following deployment file:
 #### **`service-deploy.json`**
