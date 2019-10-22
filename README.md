@@ -1,6 +1,6 @@
 # Microservice based Java Web App
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d78066416d2e4be1bf1aa259c661bb29)](https://www.codacy.com/manual/forkbomb-666/webapp_maven?utm_source=github.com&utm_medium=referral&utm_content=forkbomb-666/webapp_maven&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d78066416d2e4be1bf1aa259c661bb29)](https://www.codacy.com/manual/forkbomb-666/webapp_maven?utm_source=github.com&utm_medium=referral&utm_content=forkbomb-666/webapp_maven&utm_campaign=Badge_Grade) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Technology Stack used
 
